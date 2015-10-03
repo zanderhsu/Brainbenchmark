@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <size android:width="@dimen/shape_side_length"
+        android:height="@dimen/shape_half_side_length" />
+
+    <gradient android:gradientRadius="@dimen/shape_gradient_radius"
+        android:type="linear"
+        android:angle="135"
+        android:startColor="@color/shape_gradient_start_color"
+        android:endColor="@color/shape_gradient_end_color"/>
+
+    <!--solid android:color = "@android:color/transparent"  /-->
+
+    <stroke android:color = "@android:color/white"
+        android:width = "20dp"/>
+
+</shape>

@@ -1,0 +1,24 @@
+<resources>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="blue_bg">#0099cc</color>
+    <color name="dark_blue_bg">#006699</color>
+
+    <color name= "info_text">#F5F5F5</color>
+    <color name="button_bg">#0080FF</color>
+    <color name="button_text">#DADADA</color>
+
+
+    <color name="purple_1">#7401DF</color>
+    <color name="purple_2">#8000FF</color>
+
+    <color name="blue_1">#0404B4</color>
+
+    <color name="red_1">#B40404</color>
+    <color name="green_1">#088A08</color>
+
+    <color name="shape_gradient_start_color">@android:color/holo_blue_bright</color>
+    <color name="shape_gradient_end_color">@android:color/holo_blue_dark</color>
+
+</resources>

@@ -1,0 +1,187 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id = "@+id/major_activity_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background ="@drawable/main_bg_1"
+    tools:context=".MajorRunningActivity">
+
+    <FrameLayout
+        android:id="@+id/frame_when_running"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+        android:id = "@+id/time_text"
+        android:text="Time left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Info_text1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:textSize="30dp"/>
+
+        <TextView
+            android:id = "@+id/score_text"
+            android:text="@string/score"
+            style="@style/Info_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:textSize="30dp"/>
+
+        <TextView
+            android:id="@+id/right_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&gt;"
+            android:textColor="@color/info_text"
+            android:layout_marginTop="@dimen/item3_y"
+            android:textSize="@dimen/txtview3_textsize"
+            android:layout_alignParentLeft="true"
+            />
+
+        <TextView
+            android:id="@+id/left_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;"
+            android:textColor="@color/info_text"
+            android:layout_marginTop="@dimen/item3_y"
+            android:textSize="@dimen/txtview3_textsize"
+            android:layout_alignParentRight="true"
+            />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="350dp"
+                android:layout_below="@id/time_text"
+                android:orientation="horizontal">
+
+                <ImageButton
+                android:id="@+id/yes_button"
+                style="@style/Button2"
+                android:layout_width="wrap_content"
+                android:onClick="onYes"
+                android:src="@drawable/ic_right_icon"
+                />
+
+                <ImageButton
+                    android:id="@+id/no_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Button2"
+                    android:onClick="onNo"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_wrong_icon"/></LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>
+    <FrameLayout
+        android:id="@+id/frame_when_paused"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:id = "@+id/highest_score"
+                style="@style/Info_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text =""
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/info_when_paused"
+                style="@style/Info_text1"
+                android:layout_height="350dp"
+                android:layout_marginTop = "50dp"
+                android:gravity="center_vertical"
+                android:fitsSystemWindows="false"
+                android:text="@string/color_judgement_instruction"/>
+
+            <Button
+                android:id="@+id/color_start_button"
+                style="@style/Button1"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="80dp"
+                android:onClick="onRun"
+                android:text="@string/str_start"/>
+
+            </RelativeLayout>
+
+        <fragment
+            android:id="@+id/adFragment_2"
+            android:name="com.zander.we.brainBenchmark.AdFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            />
+
+    </FrameLayout>
+    <RelativeLayout
+        android:id="@+id/frame_for_share"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/main_bg_1"
+        android:visibility="invisible"
+        >
+
+        <TextView
+            android:id="@+id/share_info_text"
+            style="@style/share_text1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="test"
+            android:layout_marginTop="20dp"
+            android:gravity="top" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Info_text1"
+            android:text="@string/share_info_about_app"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="65dp"
+            android:drawableLeft="@drawable/ic_launcher"
+            />
+
+        <ImageView
+            android:id="@+id/google_play_image"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:scaleType="fitEnd"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/google_play_badge"/>
+
+
+        </RelativeLayout>
+</RelativeLayout>

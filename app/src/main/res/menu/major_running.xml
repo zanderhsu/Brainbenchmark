@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.zander.we.brainBenchmark.ColorJudging" >
+    <item android:id="@+id/action_about"
+        android:icon="@drawable/ic_about"
+        android:title="About"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom" />
+
+
+    <item android:id = "@+id/action_share"
+        android:icon="@drawable/ic_share"
+        android:title="Share"
+        android:orderInCategory="99"
+        android:showAsAction="ifRoom" />
+</menu>

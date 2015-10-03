@@ -1,0 +1,48 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+
+
+    <dimen name="item0_y">70dp</dimen>
+    <dimen name="item1_y">120dp</dimen>
+    <dimen name="item2_y">190dp</dimen>
+    <dimen name="item3_y">280dp</dimen>
+
+    <dimen name="item0_height">20dp</dimen>
+    <dimen name="item1_height">40dp</dimen>
+    <dimen name="item2_height">60dp</dimen>
+    <dimen name="item3_height">90dp</dimen>
+
+    <dimen name="arrow_text_size">50dp</dimen>
+
+    <!-- for Shape Juding -->
+
+    <!--The  text size values(Unit: sp) for the 4 color TextViews for Shape Judgement-->
+    <dimen name="txtview00_textsize">15dp</dimen>
+    <dimen name="txtview01_textsize">20dp</dimen>
+    <dimen name="txtview02_textsize">25dp</dimen>
+    <dimen name="txtview03_textsize">30dp</dimen>
+
+
+    <!--The  text size values(Unit: sp) for the 4 color TextViews for Color Judgement-->
+    <dimen name="txtview0_textsize">15dp</dimen>
+    <dimen name="txtview1_textsize">30dp</dimen>
+    <dimen name="txtview2_textsize">45dp</dimen>
+    <dimen name="txtview3_textsize">70dp</dimen>
+
+    <dimen name="startup_btn_width">250dp</dimen>
+    <dimen name="startup_btn_height">60dp</dimen>
+
+    <dimen name="yesOrNo_btn_width">160dp</dimen>
+    <dimen name="YesOrNo_btn_height">60dp</dimen>
+
+
+    <dimen name ="shape_side_length">400dp</dimen>
+    <dimen name ="shape_half_side_length">200dp</dimen>
+    <dimen name ="shape_quarter_length">100dp</dimen>
+
+    <dimen name="shape_gradient_radius">50dp</dimen>
+    <dimen name="button_corner_radius">30dp</dimen>
+
+</resources>

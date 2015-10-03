@@ -1,0 +1,57 @@
+
+<!-- android:background="#0099cc" -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background ="@drawable/main_bg_1"
+    tools:context=".StartupActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:layout_marginTop="20dp"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <!--android:textColor="#33b5e5"-->
+        <TextView android:id="@+id/fullscreen_content"
+            style="@style/Info_text1"
+            android:text="@string/startup_content"
+            />
+
+        <Button
+            style="@style/Button1"
+            android:text="@string/color_option"
+            android:layout_gravity="center_horizontal"
+            android:onClick="gotoColorJudging"/>
+        <Button
+        style="@style/Button1"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/shape_option"
+        android:onClick="gotoShapeJudging"/>
+
+        <Button
+            style="@style/Button1"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/face_option"
+            android:onClick="gotoFacesJudging"/>
+
+
+
+    </LinearLayout>
+
+    <fragment
+        android:id="@+id/adFragment_1"
+        android:name="com.zander.we.brainBenchmark.AdFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        />
+</FrameLayout>

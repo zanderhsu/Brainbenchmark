@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- The order shouldn't be changed as it's sorted-->
+    <integer name="color_value_black">0xff000000</integer> <!--black-->
+    <integer name="color_value_blue">0xff0000ff</integer> <!--Blue-->
+    <integer name="color_value_green">0xff00ff00</integer> <!--green-->
+    <integer name="color_value_red">0xffff0000</integer>  <!--red-->
+    <integer name="color_value_purple">0xffff00ff</integer><!--purple-->
+
+    <integer name = "score_step">1</integer>
+    <integer name = "given_seconds">60</integer>
+    <integer name = "items_count">4</integer>
+    <integer name="animation_duration">100</integer>
+
+    <integer name = "score_level_1">110</integer>
+    <integer name = "score_level_2">90</integer>
+    <integer name = "score_level_3">60</integer>
+    <integer name = "score_level_4">30</integer>
+
+
+    <item type="id" name="imgview_id_0" />
+    <item type="id" name="imgview_id_1" />
+    <item type="id" name="imgview_id_2" />
+    <item type="id" name="imgview_id_3" />
+
+</resources>

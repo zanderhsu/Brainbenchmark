@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">脑力基准测试</string>
+    <string name="startup_content">
+        你也许知道人类大脑识别文字的部分不同于识别颜色、形状、面部的部分.\n\n
+        这个游戏让你有机会测试自己大脑协调不同部分的效率和速度。玩的时候需要你同时运用大脑的多个部分。如果你想拿高分的话，那么你还需要非常的专注
+    </string>
+    <string name="color_option">颜色</string>
+    <string name="shape_option">形状</string>
+    <string name="face_option">面部</string>
+    <string name="title_activity_color_judging">颜色判断</string>
+    <string name="title_activity_shape_judging">形状判断</string>
+    <string name="title_activity_face_judging">人脸判断</string>
+
+    <string name="score">"分数 : "</string>
+
+
+    <!-- String for start and restart button -->
+    <string name="str_start">开始</string>
+    <string name="str_restart">重新开始</string>
+    <string name="str_close">关闭</string>
+    <string name="str_highest_score">"最高分数 : %1$d"</string>
+    <string name="info_finished">
+                分数  :  %1$d \n\n
+                在%3$d秒内做了%2$d次判断\n\n
+                平均,\n
+                每秒做%4$.1f次判断\n
+                每次判断需要%5$.1f秒\n\n
+    </string>
+    <string name="info_share_1">你知道Brain Benchmark(脑力基准测试)吗?\n\n
+        它可以测试你的专注度以及你大脑协调不同部分的能力\n\n
+       </string>
+    <string name="info_share_2">在玩Brain Benchmark %2$s部分的时候, 我得到 %1$d 分\n\n
+        你会比我高吗？ </string>
+    <string name="info_fail">啊。。。判断错了</string>
+    <string name="info_time_is_up">时间到</string>
+
+    <string name="info_about">© Brain Benchmark (v1.0)\n\n
+欢迎任何反馈，建议以及合作机会。\n
+备注：该应用对分数的评价仅供娱乐，请别当真\n\n
+zheng.zander.hsu@gmail.com\n
+    </string>
+
+    <!-- for color judging -->
+    <string name="color_text_black">黑</string>
+    <string name="color_text_blue">蓝</string>
+    <string name="color_text_green">绿</string>
+    <string name="color_text_red">红</string>
+    <string name="color_text_purple">紫</string>
+
+    <string name="color_judgement_instruction">
+        判断出现的文字和它的字体颜色是否相匹配</string>
+
+    <!-- for shapes judging -->
+    <string name="shape_circle">圆形</string>
+    <string name="shape_rectangle">长方形</string>
+    <string name="shape_square">正方形</string>
+    <string name="shape_oval">椭圆形</string>
+
+    <string name="shape_judgement_instruction">
+        判断出现的文字和它左边的形状是否匹配
+        </string>
+
+    <!--for faces judging-->
+    <string name="face_abbott">阿伯特</string>
+    <string name="face_Jongun">金三胖</string>
+    <string name="face_obama">奥巴马</string>
+    <string name="face_putin">普京</string>
+    <string name="face_judgement_instruction">
+        判断出现的人名和它左边的人物照片是否匹配
+       </string>
+
+    <string name="instruction_part_2">这个测试只有60秒。
+        如果你一次判断错，测试就会立即终止。所以请高度专注，别着急。
+        </string>
+    <string name="performance_1">你大脑的运转速度正在接近或超过人类的极限。请不要离开地球！地球人需要你！</string>
+    <string name="performance_2">太牛掰了！你大脑的不同部分可以协调的很好，并且你有很好的专注度！</string>
+    <string name="performance_3">不错啊! 人类进化的脚步并没有被你拖累太多</string>
+    <string name="performance_4">分数不是很理想啊...测试的时候你有开足马力吗？还是因为给大脑加的油里面被掺了水？</string>
+    <string name="performance_5">请别着急。目前你的大脑判断的准确度还跟不上你大脑运转的速度</string>
+    <string name="performance_6">测试结果表明你的大脑不同部分之间的连接有些过于松散，或者有些连接根本就不该存在</string>
+
+</resources>
