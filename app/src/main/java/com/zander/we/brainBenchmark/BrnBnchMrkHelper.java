@@ -1,4 +1,4 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 import android.app.Activity;
 import android.app.DialogFragment;

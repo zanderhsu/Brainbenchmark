@@ -1,17 +1,11 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 
-import android.annotation.SuppressLint;
-import android.app.ActionBar;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;

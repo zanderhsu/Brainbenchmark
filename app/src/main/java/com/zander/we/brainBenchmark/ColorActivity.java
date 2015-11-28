@@ -1,4 +1,4 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Hashtable;
 
@@ -40,7 +39,8 @@ public class ColorActivity extends MajorRunningActivity {
 
     protected void   subclass_set_TextOfAnItem (int itemIndex,  String text)
     {
-        mTestTxtViews[itemIndex].setText(text);
+        //adding \u2060 is just a workaround for a well-known bug on TextView of 4.0.3,
+        mTestTxtViews[itemIndex].setText(text+"\u2060");
     }
 
     protected void   subclass_set_ValueOfAnItem(int itemIndex, Integer value)

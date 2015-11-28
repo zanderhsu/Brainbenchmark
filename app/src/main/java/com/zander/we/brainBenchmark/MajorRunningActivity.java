@@ -1,4 +1,4 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -6,6 +6,8 @@ import android.animation.AnimatorSet;
 
 import android.app.Activity;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -376,7 +378,8 @@ public abstract class MajorRunningActivity extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
-        if(mState == ActivityState.ACTIVITY_STATE_PAUSED) {
+        if(mState == ActivityState.ACTIVITY_STATE_PAUSED
+                && !isDiaglogShowing()) {
             ChangeState(ActivityAction.ACTIVITY_ACTION_RESUME);
         }
     }
@@ -436,7 +439,8 @@ public abstract class MajorRunningActivity extends Activity {
         String text = subclass_get_TextOfAnItem(CONSTANT_ITEMS_COUNT - 1);
         Integer value = subclass_get_ValueOfAnItem(CONSTANT_ITEMS_COUNT - 1);
 
-        return mTestPairs.get(value).equals(text);
+        return text.contains(mTestPairs.get(value));
+        //return mTestPairs.get(value).equals(text);
     }
 
 
@@ -695,38 +699,6 @@ public abstract class MajorRunningActivity extends Activity {
 
     }
 
-    private String getPerformanceComment()
-    {
-        /*
-        Resources res = getResources();
-        int secs =CONSTANT_GIVEN_SECONDS - mLeftSeconds;
-
-        if ( mCurScore >= res.getInteger(R.integer.score_level_1) )
-        {
-            return res.getString(R.string.performance_1);
-        }
-        else if ( mCurScore >= res.getInteger(R.integer.score_level_2) )
-        {
-            return res.getString(R.string.performance_2);
-        }
-        else if ( mCurScore >= res.getInteger(R.integer.score_level_3) )
-        {
-            return res.getString(R.string.performance_3);
-        }
-        else if ( mCurScore >= res.getInteger(R.integer.score_level_4) )
-        {
-            if ((float)mCurScore/secs >= 1.3f)
-            {
-                return res.getString(R.string.performance_5) ;
-            }
-            return res.getString(R.string.performance_4);
-        }
-
-        return res.getString(R.string.performance_6);*/
-        return "";
-
-    }
-
     private void showActionBarItems()
     {
         mMenuIsHide = false;
@@ -737,6 +709,18 @@ public abstract class MajorRunningActivity extends Activity {
     {
         mMenuIsHide = true;
         invalidateOptionsMenu();
+    }
+
+    private boolean isDiaglogShowing()
+    {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+        if(prev != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void ChangeState(ActivityAction action)

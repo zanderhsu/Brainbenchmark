@@ -2,7 +2,7 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation" >
-    <string name="my_version_number">1.1</string>
+    <string name="my_version_number">2</string>
 
 
     <string name="app_name">Brain\nBenchmark</string>

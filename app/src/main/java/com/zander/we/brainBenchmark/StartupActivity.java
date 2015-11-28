@@ -1,9 +1,7 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.zander.we.brainBenchmark.PopupCondition;
-import com.zander.we.brainBenchmark.util.SystemUiHider;
 import java.util.Timer;
 
 

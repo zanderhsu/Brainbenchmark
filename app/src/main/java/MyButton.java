@@ -1,4 +1,4 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 import android.content.Context;
 import android.graphics.Rect;

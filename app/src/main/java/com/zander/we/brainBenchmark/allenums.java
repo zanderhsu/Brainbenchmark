@@ -1,4 +1,4 @@
-package com.zander.we.brainBenchmark;
+package com.zander.we.brainbenchmark;
 
 enum PopupCondition{
     POPUP_CONDITION_WRONG(0),

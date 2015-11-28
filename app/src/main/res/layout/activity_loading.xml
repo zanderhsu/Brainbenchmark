@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_bg_1"
-    tools:context="com.zander.we.brainBenchmark.loadingActivity">
+    tools:context=".loadingActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -37,7 +37,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="32dp"/>
 
-        <com.zander.we.brainBenchmark.MyButton android:id="@+id/got_it_btn"
+        <com.zander.we.brainbenchmark.MyButton android:id="@+id/got_it_btn"
             style="@style/Button1"
             android:text="@string/OK"
 

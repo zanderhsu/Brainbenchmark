@@ -58,7 +58,7 @@
             style="@style/Info_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="&lt;"
+            android:text="&lt;⁠⁠⁠"
 
             android:layout_marginTop="@dimen/item3_y"
             android:textSize="@dimen/txtview3_textsize"
@@ -158,6 +158,7 @@
                     android:text = "@string/str_no_mistake_mode"
                     android:gravity="center_vertical"
                     android:onClick="onModeChoose"
+                    android:clickable="true"
                 />
                     <LinearLayout
                         android:id="@+id/minute_mode_layout"
@@ -181,13 +182,14 @@
                         android:text="@string/str_minutes_mode"
                         android:onClick="onModeChoose"
                         android:gravity="center_vertical"
+                        android:clickable="true"
                         />
                     </LinearLayout>
                 </LinearLayout>
         </LinearLayout>
 
 
-            <com.zander.we.brainBenchmark.MyButton
+            <com.zander.we.brainbenchmark.MyButton
                 android:id="@+id/color_start_button"
                 style="@style/Button1"
 
@@ -200,7 +202,7 @@
 
         <!--fragment
             android:id="@+id/adFragment_2"
-            android:name="com.zander.we.brainBenchmark.AdFragment"
+            android:name="com.zander.we.brainbenchmark.AdFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
