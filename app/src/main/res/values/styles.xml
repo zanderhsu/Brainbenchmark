@@ -2,7 +2,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
@@ -11,7 +11,9 @@
         <item name="android:windowBackground">@null</item>
         <item name="metaButtonBarStyle">@null</item>
         <item name="metaButtonBarButtonStyle">@null</item>
-        <item name="android:actionBarStyle">@style/MyTheme.MyActionBarStyle</item>
+        <!--item name="android:actionBarStyle">@style/MyTheme.MyActionBarStyle</item-->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="MyTheme.MyActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -26,21 +28,23 @@
     <style name="Button1" >
         <item name="android:textColor">@color/info_text</item>
         <item name="android:background">@drawable/button_type_1</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">32dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">@dimen/startup_btn_width</item>
+        <item name="android:layout_height">@dimen/startup_btn_height</item>
         <item name="android:layout_marginTop">20dp</item>
+
     </style>
 
     <style name="Button2" >
         <item name="android:textColor">@color/info_text</item>
-        <item name="android:background">@drawable/button_type_2</item>
-        <item name="android:textSize">30dp</item>
+        <item name="android:textSize">32dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">@dimen/yesOrNo_btn_width</item>
+        <item name="android:layout_height">@dimen/YesOrNo_btn_height</item>
+        <item name="android:layout_marginTop">2dp</item>
+
     </style>
 
     <style name="Info_text1">
@@ -48,21 +52,56 @@
         <item name="android:layout_height">wrap_content</item>
        <item name="android:textColor">@color/info_text</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
+
         <item name="android:gravity">left</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:textColorHighlight">@color/info_text</item>
+        <item name="android:shadowColor">@color/darker_gray_color</item>
+        <item name="android:shadowDx">4</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">8</item>
+    </style>
+
+    <style name="Info_text2">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/info_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:textColorHighlight">@color/info_text</item>
+        <item name="android:shadowColor">@color/darker_gray_color</item>
+        <item name="android:shadowDx">4</item>
+        <item name="android:shadowDy">4</item>
+        <item name="android:shadowRadius">8</item>
     </style>
 
     <style name="share_text1">
         <item name="android:textColor">@color/info_text</item>
         <item name="android:textStyle">italic|bold</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:gravity">left</item>
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_marginRight">15dp</item>
         <item name="android:textColorHighlight">@color/info_text</item>
     </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+
 
 </resources>

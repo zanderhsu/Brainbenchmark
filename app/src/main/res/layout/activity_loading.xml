@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg_1"
+    tools:context="com.zander.we.brainBenchmark.loadingActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <LinearLayout
+        android:id="@+id/ll_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/txtview_game_title"
+            style="@style/Info_text2"
+            android:text="@string/app_name"
+
+            android:gravity="left|center_vertical"
+            android:layout_marginLeft="32dp"
+            android:layout_gravity="center_horizontal"
+
+            android:layout_marginTop="18dp"/>
+
+
+        <TextView
+            android:id="@+id/fullscreen_content"
+            style="@style/Info_text2"
+            android:text="@string/startup_content"
+            android:textStyle="bold|italic"
+            android:gravity="left"
+            android:layout_marginLeft="32dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"/>
+
+        <com.zander.we.brainBenchmark.MyButton android:id="@+id/got_it_btn"
+            style="@style/Button1"
+            android:text="@string/OK"
+
+            android:layout_gravity="center"
+            android:onClick="onOKbtn"
+        />
+
+    </LinearLayout>
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+
+        <!--ProgressBar
+
+            style="?android:attr/progressBarStyleSmall"
+            android:id="@+id/loading_prgbar"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:indeterminate="false"
+
+            /-->
+    </FrameLayout>
+
+</FrameLayout>

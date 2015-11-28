@@ -6,11 +6,18 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.zander.we.brainBenchmark.PopupCondition;
 import com.zander.we.brainBenchmark.util.SystemUiHider;
+import java.util.Timer;
+
 
 
 /**
@@ -21,6 +28,8 @@ import com.zander.we.brainBenchmark.util.SystemUiHider;
  */
 public class StartupActivity extends Activity {
 
+    private Handler mHandler = new Handler();
+    private Timer mTimer = new Timer(true);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,33 @@ public class StartupActivity extends Activity {
 
         setContentView(R.layout.activity_startup);
 
-       }
+        TextView menuTxtView = (TextView)findViewById(R.id.menu_txtview);
+
+        BrnBnchMrkHelper.setSystemFontNumber(3,menuTxtView, 60);
+        if(loadingActivity.sCurrentInstance != null)
+        {
+            loadingActivity.sCurrentInstance.finish();
+        }
+        else
+        {
+            Log.i("[BM]", "loadingActivity.sCurrentInstance is null");
+        }
+    }
+
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+        showViewsByAnimation();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        showViewsByAnimation();
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -55,7 +90,7 @@ public class StartupActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_about) {
-            showAbout();
+
             return false;
         }
         return super.onOptionsItemSelected(item);
@@ -79,29 +114,36 @@ public class StartupActivity extends Activity {
         startActivity(intent);
     }
 
-    private void showAbout()
+    public void showAbout(View view)
     {
+        BrnBnchMrkHelper.showPopup(this, PopupCondition.POPUP_CONDITION_ABOUT);
+    }
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
+    public boolean onKeyDown(int keyCode,/*@NonNull*/ KeyEvent event) {
+        //only if it's in running state, make it to return stopped state
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
         }
 
-        ft.addToBackStack(null);
+        return super.onKeyDown(keyCode, event);
+    }
 
-        DialogFragment dialog = new popupDialogFragment();
-        Bundle args = new Bundle();
+    private void showViewsByAnimation()
+    {
+        int[] view_ids = {
+              /*  R.id.on_colors_btn,
+                R.id.on_shapes_btn,
+                R.id.on_faces_btn,
+                R.id.menu_txtview*/
+                R.id.ll_startup
+        };
 
-        args.putInt(popupDialogFragment.CONSTANT_SHOW_WHAT, PopupCondition.POPUP_CONDITION_ABOUT.getValue());
-        dialog.setArguments(args);
+        BrnBnchMrkHelper.showViewsByAnimation(this, view_ids);
 
-        dialog.show(ft, "About");
+    }
 
-        getFragmentManager().executePendingTransactions();
-        if(dialog.getDialog() != null)
-        {
-            dialog.getDialog().setCanceledOnTouchOutside(false);
-        }
+    public void myTest(View view)
+    {
+        showViewsByAnimation();
     }
 }

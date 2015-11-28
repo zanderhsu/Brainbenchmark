@@ -5,7 +5,9 @@
     <color name="blue_bg">#0099cc</color>
     <color name="dark_blue_bg">#006699</color>
 
-    <color name= "info_text">#F5F5F5</color>
+    <color name="info_text">#F0F0F0</color>
+    <color name="error_text">#efb420</color>
+    <color name="right_text">#1b8905</color>
     <color name="button_bg">#0080FF</color>
     <color name="button_text">#DADADA</color>
 
@@ -20,5 +22,7 @@
 
     <color name="shape_gradient_start_color">@android:color/holo_blue_bright</color>
     <color name="shape_gradient_end_color">@android:color/holo_blue_dark</color>
+    <color name="button_shadow_color">#555555</color>
+    <color name="darker_gray_color">#FF444444</color>
 
 </resources>

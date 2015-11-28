@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background ="@drawable/main_bg_1"
+
+    android:background = "@drawable/sky_blue_texture"
     tools:context=".StartupActivity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -13,45 +14,62 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_startup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginTop="20dp"
         android:fitsSystemWindows="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <!--android:textColor="#33b5e5"-->
-        <TextView android:id="@+id/fullscreen_content"
-            style="@style/Info_text1"
-            android:text="@string/startup_content"
+        <TextView android:id="@+id/menu_txtview"
+            style="@style/Info_text2"
+            android:gravity="center_horizontal"
+            android:text="@string/menu_str"
             />
 
-        <Button
+        <com.zander.we.brainBenchmark.MyButton
             style="@style/Button1"
+            android:id = "@+id/on_colors_btn"
             android:text="@string/color_option"
             android:layout_gravity="center_horizontal"
             android:onClick="gotoColorJudging"/>
-        <Button
+        <com.zander.we.brainBenchmark.MyButton
         style="@style/Button1"
+            android:id = "@+id/on_shapes_btn"
         android:layout_gravity="center_horizontal"
         android:text="@string/shape_option"
         android:onClick="gotoShapeJudging"/>
 
-        <Button
+        <com.zander.we.brainBenchmark.MyButton
             style="@style/Button1"
+            android:id = "@+id/on_faces_btn"
             android:layout_gravity="center_horizontal"
             android:text="@string/face_option"
             android:onClick="gotoFacesJudging"/>
 
+        <com.zander.we.brainBenchmark.MyButton
+            style="@style/Button1"
+            android:id = "@+id/on_about"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/str_about"
+            android:onClick="showAbout"/>
 
+        <com.zander.we.brainBenchmark.MyButton
+            style="@style/Button1"
+            android:layout_gravity="center_horizontal"
+            android:text="test"
+            android:visibility="gone"
+            android:onClick="myTest"/>
 
     </LinearLayout>
 
-    <fragment
+    <!--fragment
         android:id="@+id/adFragment_1"
         android:name="com.zander.we.brainBenchmark.AdFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        />
+        /-->
 </FrameLayout>

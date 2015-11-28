@@ -2,51 +2,62 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation" >
-    <string name="my_version_number">1.0</string>
+    <string name="my_version_number">1.1</string>
 
 
-    <string name="app_name">Brain Benchmark</string>
+    <string name="app_name">Brain\nBenchmark</string>
     <string name="startup_content">
-        The part of human brain responsible for recognizing words is different from the part responsible for telling colors, shapes, faces ...\n
-        While playing this game, you have to use multiple parts of your brain simultaneously,
-        and you also need to be very concentrated if you want make a high score.
+        Judge if the word matches what you see.\n
+        Do it as fast as you can!
     </string>
-    <string name="color_option">on Colors</string>
-    <string name="shape_option">on Shapes</string>
-    <string name="face_option">on Faces</string>
-    <string name="title_activity_color_judging">Colors Determination</string>
-    <string name="title_activity_shape_judging">Shapes Determination</string>
-    <string name="title_activity_face_judging">Faces Determination</string>
-    <string name="time_left"></string>
-    <string name="score">"Score : "</string>
+    <string name="OK">
+        Got it
+    </string>
+    <string name="color_option">ON COLORS</string>
+    <string name="shape_option">ON SHAPES</string>
+    <string name="face_option">ON FACES</string>
+    <string name="title_activity_color_judging">COLORS</string>
+    <string name="title_activity_shape_judging">SHAPES</string>
+    <string name="title_activity_face_judging">FACES</string>
+
+    <string name="score">"SCORE : "</string>
     <string name="share_info_about_app">© Brain Benchmark</string>
 
     <!-- String for start and restart button -->
-    <string name="str_start">Start</string>
-    <string name="str_restart">Restart</string>
-    <string name="str_close">Close</string>
-    <string name="str_highest_score">"Best Score : %1$d points"</string>
-    <string name="info_finished">
-                SCORE  :  %1$d POINTS\n\n
-                %2$d decisions in %3$d secs\n\n
-                On average,\n
-                %4$.1f decisions per sec\n
-                %5$.1f secs per decision.\n
+    <string name="str_start">START</string>
+    <string name="str_restart">RESTART</string>
+    <string name="str_close">CLOSE</string>
+    <string name="str_resume">RESUME</string>
+    <string name="str_stop">STOP</string>
+    <string name="str_highest_score">"BEST SCORE: %1$d"</string>
+    <string name="info_no_mistake_mode_finished">
+               "                 SCORE:  %1$d\n"
+               "         DURATION:  %2$d secs\n"
+               "AVG. REACTION:  %3$.1f secs."
     </string>
+
+    <string name="info_minutes_mode_finished">
+               "                 SCORE:  %1$d\n"
+               "AVG. REACTION:  %2$.1f secs\n"
+               "       ACCURACY:  %3$d%%"
+    </string>
+
+    <string name="info_do_nothing">
+                SCORE:  0\n
+    </string>
+
     <string name="info_share_1">Do you know the app called Brain Benchmark?\n\n It can test your power of
         concentration and the speed of your brain coordinating its different parts.\n\n
        </string>
     <string name="info_share_2">I just got %1$d points while playing %2$s in Brain Benchmark. \n\nCan you do better than me? </string>
     <string name="info_fail">Opps... Wrong! </string>
     <string name="info_time_is_up">Time is up</string>
+    <string name="info_if_exit">Do you want to stop?</string>
 
-    <string name="info_about">© Brain Benchmark (v1.0)\n\n
+    <string name="info_about">© Brain Benchmark (v1.1)\n\n
 Welcome any feedback, suggestions and cooperation opportunities\n\n
-PS: the comments for your scores is just for fun. Please don\'t take it seriously\n\n
 zheng.zander.hsu@gmail.com\n
     </string>
-
-    <string name="menu_ranking">Ranking</string>
 
     <!-- for color judging -->
     <string name="color_text_black">Black</string>
@@ -56,7 +67,7 @@ zheng.zander.hsu@gmail.com\n
     <string name="color_text_purple">Purple</string>
 
     <string name="color_judgement_instruction">
-        Determine if the word truly matches its font color.</string>
+        Judge if the word matches its font color.</string>
 
     <!-- for shapes judging -->
     <string name="shape_circle">Circle</string>
@@ -65,7 +76,7 @@ zheng.zander.hsu@gmail.com\n
     <string name="shape_oval">Oval</string>
 
     <string name="shape_judgement_instruction">
-        Determine if the word truly matches the shape left beside it.
+        Judge if the word matches the shape left beside it.
         </string>
 
     <!--for faces judging-->
@@ -74,29 +85,35 @@ zheng.zander.hsu@gmail.com\n
     <string name="face_obama">Obama</string>
     <string name="face_putin">Putin</string>
     <string name="face_judgement_instruction">
-        Determine if the name truly matches the portrait image left beside it.
+        Judge if the name matches the portrait image left beside it.
        </string>
 
-    <string name="instruction_part_2">The test will last for only 60 secs.
-        If you are wrong one time then the test will terminate,
-        So please be concentrated and don\'t rush. Good Luck!</string>
-    <string name="performance_1">Your brain are approaching or exceeding human limits!Please don\'t leave earth. Earth need you!</string>
-    <string name="performance_2">Terrific! Different parts of your brain can cowork very well and you have a awesome power of concentration!</string>
-    <string name="performance_3">Not bad! You didn\'t hinder the progress of human evolution too much</string>
-    <string name="performance_4">Not very well...have you pushed the pedal to the metal?
-                Or maybe it\'s because the oil for your brain running smoothly was mixed with water somehow</string>
-    <string name="performance_5">Don\'t rush. For the time being your brain\'s decision accuracy haven\'t been able to catch up its running speed yet</string>
-    <string name="performance_6">Hmm... It seems that the connections between the different parts of your brain is a little bit too weak,
-        or some connections shouldn\'t exist at all </string>
 
     <!--for application data-->
     <string name="application_data">BRAIN_BENCHMARK</string>
     <string name="color_judge_highest_score">COLOR_HIGHEST_SCORE</string>
     <string name="shape_judge_highest_score">SHAPE_HIGHEST_SCORE</string>
     <string name="face_judge_highest_score">FACES_HIGHEST_SCORE</string>
+    <string name="game_mode">GAME_MODE</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-4648254756434161/5483691134</string>
 
     <string name="share_image_file">share.png</string>
-    <string name="provider_authority">com.zander.we.brainbenchmark.fileprovider</string>
+    <string name="provider_authority">com.zander.we.brainBenchmark.fileprovider</string>
+
+    <string name="menu_str">MENU</string>
+
+    //though cannot be found usage, these font name is being used inbBrnBnchMrkHelper.java
+    <string name="system_font_name1">seasrn.ttf</string>
+    <string name="system_font_name2">Oswald_HeavyItalic.ttf</string>
+    <string name="system_font_name3">orange_juice_2.0.ttf</string>
+
+    <string name="str_no_mistake_mode">NO MISTAKE MODE</string>
+    <string name="str_minutes_mode">MINUTE(S) MODE</string>
+    <string name="str_error">ERROR</string>
+    <string name="str_right">"+1"</string>
+    <string name="str_about">ABOUT</string>
+    <string name="str_yes">YES</string>
+    <string name="str_no">NO</string>
+
 </resources>

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Hashtable;
 
 
@@ -105,13 +106,14 @@ public class ColorActivity extends MajorRunningActivity {
             txtView.setGravity(Gravity.CENTER);
             txtView.setTextSize(mTxtSize[i]);
             txtView.setTypeface(null, Typeface.BOLD);
+            txtView.setShadowLayer(8f, 4f, 4f, Color.DKGRAY);
             //txtView.setBackgroundColor(Color.RED);
         }
     }
 
 
     //get current animators
-    protected Animator[] subclass_get_CurrentAnimators()
+    protected Collection<Animator> subclass_get_CurrentAnimators()
     {
         ArrayList<Animator> amArray = new ArrayList<Animator>();
 
@@ -127,6 +129,10 @@ public class ColorActivity extends MajorRunningActivity {
             size_ph = PropertyValuesHolder.ofFloat("textSize", mTxtSize[i], mTxtSize[i+1]);
             amArray.add(ObjectAnimator.ofPropertyValuesHolder(mTestTxtViews[i], size_ph));
 
+            /**
+             * Because ObjectAnimator require a property accessor, but height for RelativeLayout
+             * has no such thing like a setHeight(), therefore it needs a value Animator
+             */
 
             final RelativeLayout rL = mTestItems[i];
             ValueAnimator vAm = ValueAnimator.ofInt((int) mTestItemHeight[i], (int) mTestItemHeight[i + 1]);
@@ -144,7 +150,8 @@ public class ColorActivity extends MajorRunningActivity {
             amArray.add(vAm);
         }
 
-        return Arrays.copyOf(amArray.toArray(),amArray.size(),Animator[].class);
+        //return Arrays.copyOf(amArray.toArray(),amArray.size(),Animator[].class);
+        return amArray;
     }
 
     @Override

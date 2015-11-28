@@ -10,14 +10,16 @@
     android:background ="@drawable/main_bg_1"
     tools:context=".MajorRunningActivity">
 
-    <FrameLayout
-        android:id="@+id/frame_when_running"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <RelativeLayout
+
+    <RelativeLayout
+            android:id="@+id/frame_when_running"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|fill_vertical"
+            android:visibility="visible"
+            android:layout_marginTop="32dp"
+        >
 
         <TextView
         android:id = "@+id/time_text"
@@ -41,10 +43,11 @@
 
         <TextView
             android:id="@+id/right_arrow"
+            style="@style/Info_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="&gt;"
-            android:textColor="@color/info_text"
+
             android:layout_marginTop="@dimen/item3_y"
             android:textSize="@dimen/txtview3_textsize"
             android:layout_alignParentLeft="true"
@@ -52,10 +55,11 @@
 
         <TextView
             android:id="@+id/left_arrow"
+            style="@style/Info_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="&lt;"
-            android:textColor="@color/info_text"
+
             android:layout_marginTop="@dimen/item3_y"
             android:textSize="@dimen/txtview3_textsize"
             android:layout_alignParentRight="true"
@@ -65,81 +69,145 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="350dp"
-                android:layout_below="@id/time_text"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="396dp"
+
                 android:orientation="horizontal">
 
-                <ImageButton
+                <Button
                 android:id="@+id/yes_button"
                 style="@style/Button2"
-                android:layout_width="wrap_content"
                 android:onClick="onYes"
-                android:src="@drawable/ic_right_icon"
+                android:background="@drawable/button_yes_bg"
                 />
 
-                <ImageButton
+                <Button
                     android:id="@+id/no_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     style="@style/Button2"
                     android:onClick="onNo"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/ic_wrong_icon"/></LinearLayout>
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/button_no_bg"/>
+            </LinearLayout>
 
     </RelativeLayout>
 
-</FrameLayout>
-    <FrameLayout
-        android:id="@+id/frame_when_paused"
 
+    <RelativeLayout
+        android:id="@+id/frame_when_paused"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
+
         >
-        <RelativeLayout
+    <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="fill_vertical|center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="48dp"
+
             >
             <TextView
                 android:id = "@+id/highest_score"
                 style="@style/Info_text1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text =""
+                android:text ="score"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="10dp"
+
                 />
 
             <TextView
-                android:id="@+id/info_when_paused"
                 style="@style/Info_text1"
-                android:layout_height="350dp"
-                android:layout_marginTop = "50dp"
+                android:id="@+id/info_when_paused"
+                android:layout_height="wrap_content"
+                android:layout_marginTop = "48dp"
+                android:layout_below="@+id/highest_score"
                 android:gravity="center_vertical"
-                android:fitsSystemWindows="false"
-                android:text="@string/color_judgement_instruction"/>
+                android:text="@string/color_judgement_instruction"
+                android:onClick="MyTest"/>
 
-            <Button
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/info_when_paused"
+                android:layout_marginTop="64dp">
+
+
+                <ImageView
+                    android:id="@+id/imgview_choice_arrow"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_mode_choice"
+                    />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                <TextView android:id="@+id/txtview_no_mistakes"
+                    android:layout_width="wrap_content"
+
+                    style="@style/Info_text1"
+                    android:layout_height="40dp"
+                    android:textSize="24dp"
+                    android:text = "@string/str_no_mistake_mode"
+                    android:gravity="center_vertical"
+                    android:onClick="onModeChoose"
+                />
+                    <LinearLayout
+                        android:id="@+id/minute_mode_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        >
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:gravity="center_vertical"
+                        android:id="@+id/spinner_minute"
+                        />
+                    <TextView android:id="@+id/txtview_fixed_duration"
+                        android:layout_width="wrap_content"
+
+                        style="@style/Info_text1"
+                        android:layout_height="40dp"
+                        android:textSize="24dp"
+                        android:text="@string/str_minutes_mode"
+                        android:onClick="onModeChoose"
+                        android:gravity="center_vertical"
+                        />
+                    </LinearLayout>
+                </LinearLayout>
+        </LinearLayout>
+
+
+            <com.zander.we.brainBenchmark.MyButton
                 android:id="@+id/color_start_button"
                 style="@style/Button1"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="80dp"
+
                 android:onClick="onRun"
+
+                android:layout_gravity="center_horizontal|bottom"
                 android:text="@string/str_start"/>
 
-            </RelativeLayout>
+    </LinearLayout>
 
-        <fragment
+        <!--fragment
             android:id="@+id/adFragment_2"
             android:name="com.zander.we.brainBenchmark.AdFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            />
 
-    </FrameLayout>
+            tools:layout="@layout/fragment_ad" /-->
+        </RelativeLayout>
     <RelativeLayout
         android:id="@+id/frame_for_share"
         android:layout_width="match_parent"
@@ -169,7 +237,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginBottom="65dp"
             android:drawableLeft="@drawable/ic_launcher"
-            />
+            android:id="@+id/textView" />
 
         <ImageView
             android:id="@+id/google_play_image"
@@ -183,5 +251,5 @@
             android:src="@drawable/google_play_badge"/>
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 </RelativeLayout>

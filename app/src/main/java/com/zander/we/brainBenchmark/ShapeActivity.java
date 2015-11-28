@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Hashtable;
 
 
@@ -130,13 +132,14 @@ public class ShapeActivity extends MajorRunningActivity {
             txtView.setTextSize(mTxtSize[i]);
             txtView.setTextColor(res.getColor(R.color.info_text));
             txtView.setTypeface(null, Typeface.BOLD);
-            txtView.setPadding((int)(mTestItemHeight[i]*0.1F), 0,0,0);
+            txtView.setPadding((int) (mTestItemHeight[i] * 0.1F), 0, 0, 0);
+            txtView.setShadowLayer(8f, 4f, 4f, Color.DKGRAY);
             // txtView.setBackgroundColor(Color.RED);
         }
     }
 
     //get current animators
-    protected Animator[] subclass_get_CurrentAnimators()
+    protected Collection<Animator> subclass_get_CurrentAnimators()
     {
         ArrayList<Animator> animatorArrayList = new ArrayList<Animator>();
 
@@ -178,7 +181,8 @@ public class ShapeActivity extends MajorRunningActivity {
             animatorArrayList.add(vAm);
         }
 
-        return Arrays.copyOf(animatorArrayList.toArray(), animatorArrayList.size(), Animator[].class);
+        //return Arrays.copyOf(animatorArrayList.toArray(), animatorArrayList.size(), Animator[].class);
+        return animatorArrayList;
     }
 
     @Override

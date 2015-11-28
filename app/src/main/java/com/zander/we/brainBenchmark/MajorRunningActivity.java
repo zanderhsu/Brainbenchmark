@@ -3,16 +3,16 @@ package com.zander.we.brainBenchmark;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,26 +20,36 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
+
+
+import android.view.animation.DecelerateInterpolator;
+
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
+
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-
-//import android.support.annotation.NonNull;
-
-
 
 public abstract class MajorRunningActivity extends Activity {
 
@@ -51,7 +61,8 @@ public abstract class MajorRunningActivity extends Activity {
     int mCurScore = 0;
     Timer mTimer;
     ActivityState mState;
-    int mLeftSeconds = 0;
+    int mDisplaySeconds = 0;
+    int mTotalJudgeTimes = 0;
 
     float mScaledDensity = 0;
     float mDensity = 0;
@@ -72,6 +83,8 @@ public abstract class MajorRunningActivity extends Activity {
 
     SubActivity mActualActivity = SubActivity.SUB_ACTIVITY_UNASSIGNED;
 
+    private GameMode mGameMode = GameMode.GAME_MODE_NO_MISTAKES;
+
     //Generate a resource Id programmatically, such imgview0_y,...
     protected int getResIdWithPattern( String type, String beforeNum, int num, String afterNum)
     {
@@ -88,12 +101,17 @@ public abstract class MajorRunningActivity extends Activity {
     abstract protected Integer subclass_get_ValueOfAnItem(int itemIndex);
 
     abstract protected void   subclass_set_TextOfAnItem (int itemIndex,  String text);
-    abstract protected  void   subclass_set_ValueOfAnItem(int itemIndex, Integer value);
+    abstract protected void   subclass_set_ValueOfAnItem(int itemIndex, Integer value);
 
     abstract String subclass_getKeyForSavingHighestScore();
 
     //get current animators, the object should use mTestTextViews and mTestViews
-    abstract protected Animator[] subclass_get_CurrentAnimators();
+    abstract protected Collection<Animator> subclass_get_CurrentAnimators();
+
+    public void MyTest(View view)
+    {
+
+    }
 
     //This method should be overrode
     protected void  subclass_restore_TopItem()
@@ -108,10 +126,109 @@ public abstract class MajorRunningActivity extends Activity {
         topItem.setVisibility(View.VISIBLE);
     }
 
+    public void popupErrorOrRightText(Boolean isCorrect)
+    {
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final RelativeLayout parent = (RelativeLayout)findViewById(R.id.frame_when_running);
+
+        final View fl =  inflater.inflate(R.layout.error_or_right_info_layout, null);
+
+
+        parent.addView(fl);
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)fl.getLayoutParams();
+
+
+        //lp.setMargins((int)(240*mDensity),(int)(256*mDensity),0,0);
+        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+
+        fl.setLayoutParams(lp);
+
+        fl.setY(180 * mDensity);
+
+        TextView tv = (TextView)fl.findViewById(R.id.error_or_right_text);
+        if(isCorrect)
+        {
+            fl.setX(24 * mDensity);
+            tv.setTextColor(getResources().getColor(R.color.right_text));
+            tv.setText(getString(R.string.str_right));
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,32);
+        }
+        else
+        {
+            fl.setX(240 * mDensity);
+            tv.setTextColor(getResources().getColor(R.color.error_text));
+            tv.setText(getString( R.string.str_error));
+        }
+        fl.setVisibility(View.VISIBLE);
+        ViewPropertyAnimator vpAnm = fl.animate();
+
+
+        vpAnm.setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+
+                fl.setVisibility(View.INVISIBLE);
+                parent.removeView(fl);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+
+        float endY = 80*mDensity;
+
+        vpAnm.setDuration(1500).alpha(0.05f).y(endY).scaleX(1.5f);
+
+    }
+
+    public void onModeChoose(View view)
+    {
+        int view_id = view.getId();
+        ImageView arrowView = (ImageView)findViewById(R.id.imgview_choice_arrow);
+
+        float no_mistake_y = findViewById(R.id.txtview_no_mistakes).getY();
+        float fixed_duration_y = findViewById(R.id.minute_mode_layout).getY();
+
+
+        ViewPropertyAnimator vpAnm =  arrowView.animate();
+        vpAnm.setDuration(300);
+
+
+        if(view_id == R.id.txtview_no_mistakes ) {
+            vpAnm.y(no_mistake_y);
+            mGameMode = GameMode.GAME_MODE_NO_MISTAKES;
+        }
+        else if( view_id == R.id.spinner_minute
+                    || view_id == R.id.txtview_fixed_duration )
+
+        {
+            vpAnm.y(fixed_duration_y);
+            mGameMode = GameMode.GAME_MODE_IN_MINUTES;
+        }
+
+    }
+
     //To specify test views' positions and other properties, should be overrode
     protected void subclass_initBeforeRun()
     {
-        ViewGroup.LayoutParams vlp;
+        RelativeLayout.LayoutParams rlp;
         RelativeLayout rLayout;
 
         //Adjust view's positions
@@ -119,12 +236,15 @@ public abstract class MajorRunningActivity extends Activity {
         {
             rLayout = mTestItems[i];
 
-            vlp = rLayout.getLayoutParams();
-            vlp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            vlp.height = (int)mTestItemHeight[i];
-            ((FrameLayout.LayoutParams)vlp).gravity = Gravity.CENTER_HORIZONTAL;
-            rLayout.setLayoutParams(vlp);
+            rlp = (RelativeLayout.LayoutParams)rLayout.getLayoutParams();
+            rlp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            rlp.height = (int)mTestItemHeight[i];
+            //rlp.gravity = Gravity.CENTER_HORIZONTAL;
+            rlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+
+            rLayout.setLayoutParams(rlp);
             rLayout.setY(mTestItem_Y[i]);
+            rLayout.setGravity(Gravity.CENTER_HORIZONTAL);
             //rLayout.setBackgroundColor(Color.WHITE);
         }
     }
@@ -140,6 +260,8 @@ public abstract class MajorRunningActivity extends Activity {
         }
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d("## debug ##", "getClass().getSimpleName() = " + getClass().getSimpleName());
@@ -147,9 +269,56 @@ public abstract class MajorRunningActivity extends Activity {
 
         setContentView(R.layout.activity_major_running);
 
+        //UI part
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_minute);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.minutes_array, R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        final float spinTxtSize = ((TextView)findViewById(R.id.txtview_fixed_duration)).getTextSize();
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                //((TextView) parentView.getChildAt(0)).setTextColor(Color.WHITE);
+                //((TextView) parentView.getChildAt(0)).setTextSize(TypedValue.COMPLEX_UNIT_PX, spinTxtSize);
+                CONSTANT_GIVEN_SECONDS = (position+1)*60;
+
+                Log.i("[zander]","position = "+position+",id = "+id);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
+        });
+
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    onModeChoose(v);
+                }
+                return false;
+            }
+        });
+
+        BrnBnchMrkHelper.setSystemFontNumber(1, (TextView) findViewById(R.id.highest_score), 28);
+        BrnBnchMrkHelper.setSystemFontNumber(1, (TextView) findViewById(R.id.score_text), 24);
+        BrnBnchMrkHelper.setSystemFontNumber(1, (TextView) findViewById(R.id.time_text), 24);
+
+        BrnBnchMrkHelper.setSystemFontNumber(2, (TextView) findViewById(R.id.info_when_paused), 24);
+
         Resources res = getResources();
         CONSTANT_SCORE_STEP = res.getInteger(R.integer.score_step);
         CONSTANT_GIVEN_SECONDS = res.getInteger(R.integer.given_seconds);
+
         CONSTANT_ITEMS_COUNT = res.getInteger(R.integer.items_count);
         CONSTANT_ANIMATION_DURATION = res.getInteger(R.integer.animation_duration);
 
@@ -166,11 +335,10 @@ public abstract class MajorRunningActivity extends Activity {
         Log.d("info", "System ScaledDensity = "+mScaledDensity +", Density = " + mDensity);
 
         mCurScore = 0;
-        mLeftSeconds = CONSTANT_GIVEN_SECONDS;
 
         mRandom = new Random(System.currentTimeMillis());
 
-        FrameLayout fL = (FrameLayout)findViewById(R.id.frame_when_running);
+        RelativeLayout fL = (RelativeLayout)findViewById(R.id.frame_when_running);
 
         for(int i=0; i < CONSTANT_ITEMS_COUNT;i++) {
             mTestItems[i] = new RelativeLayout(getApplicationContext());
@@ -191,7 +359,38 @@ public abstract class MajorRunningActivity extends Activity {
         subclass_initOnCreate();
 
         ChangeState(ActivityAction.ACTIVITY_ACTION_INIT);
+
+        //Set Game Mode UI
+        mGameMode = getGameMode();
+        if(mGameMode == GameMode.GAME_MODE_IN_MINUTES)
+        {
+
+            ImageView arrowView = (ImageView)findViewById(R.id.imgview_choice_arrow);
+            LinearLayout.LayoutParams lp = ( LinearLayout.LayoutParams)arrowView.getLayoutParams();
+            lp.gravity = Gravity.BOTTOM;
+
+            arrowView.setLayoutParams(lp);
+        }
       }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        if(mState == ActivityState.ACTIVITY_STATE_PAUSED) {
+            ChangeState(ActivityAction.ACTIVITY_ACTION_RESUME);
+        }
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.i("[zander]","onPause is called in MajorRunning Activity");
+        saveGameMode(mGameMode);
+
+        if(mState == ActivityState.ACTIVITY_STATE_RUNNING) {
+            ChangeState(ActivityAction.ACTIVITY_ACTION_PAUSE);
+        }
+    }
 
     @Override
        public boolean onCreateOptionsMenu(Menu menu) {
@@ -211,7 +410,7 @@ public abstract class MajorRunningActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_about) {
-            toShowAbout();
+            //toShowAbout();
             return false;
         }
         else if (id == R.id.action_share)
@@ -253,31 +452,27 @@ public abstract class MajorRunningActivity extends Activity {
     //move test items
     private void moveTestItems() {
 
-        Animator[] animatorArrays = subclass_get_CurrentAnimators();
-
-        AnimatorSet animatorSet = new AnimatorSet();
-        final long duration = (long) CONSTANT_ANIMATION_DURATION;
-
         //make the two buttons unClickable
         findViewById(R.id.yes_button).setClickable(false);
         findViewById(R.id.no_button).setClickable(false);
 
+
+        Collection<Animator> animatorCollection = subclass_get_CurrentAnimators();
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        final long duration = (long) CONSTANT_ANIMATION_DURATION;
+
+
         //hide the item at the bottom
         mTestItems[CONSTANT_ITEMS_COUNT-1].setVisibility(View.INVISIBLE);
 
-        Log.d("## debug ##", "animatorArrays.length = " + animatorArrays.length);
+        Log.d("## debug ##", "animatorCollection.size() = " + animatorCollection.size());
 
-        for (Animator a : animatorArrays) {
-            if(a != null) {
-                a.setDuration(duration);
-                animatorSet.play(a);
-            }
-            else {
-                Log.d("## debug","a is null !!!");
-            }
-        }
+        animatorSet.setInterpolator(new DecelerateInterpolator());
+        animatorSet.setDuration(duration);
+        animatorSet.playTogether(animatorCollection);
 
-        animatorSet.addListener(new AnimatorListenerAdapter() {
+         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
@@ -333,14 +528,17 @@ public abstract class MajorRunningActivity extends Activity {
 
     private void refreshTime()
     {
+        final Activity curActivity = this;
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Resources res = getResources();
                 TextView timeView = (TextView) findViewById(R.id.time_text);
-                timeView.setText(res.getString(R.string.time_left) + " " + String.format("%02d : %02d", mLeftSeconds / 60, mLeftSeconds % 60));
-                if (mLeftSeconds == 0) {
-                    showPopup(PopupCondition.POPUP_CONDITION_TIME_IS_UP);
+                timeView.setText(String.format("%02d : %02d", mDisplaySeconds / 60, mDisplaySeconds % 60));
+                if (mDisplaySeconds == 0 && mGameMode == GameMode.GAME_MODE_IN_MINUTES) {
+                    //Stop the running
+                    ChangeState(ActivityAction.ACTIVITY_ACTION_PAUSE);
+                    BrnBnchMrkHelper.showPopup(curActivity, PopupCondition.POPUP_CONDITION_TIME_IS_UP);
                 }
             }
         });
@@ -351,63 +549,56 @@ public abstract class MajorRunningActivity extends Activity {
     {
         Boolean isMatched = isTestedPairMatch();
 
+        mTotalJudgeTimes += 1;
+
         if( (isMatched && isYes) || (!isMatched && !isYes))
         {
+            //when the judgement is right
             mCurScore += CONSTANT_SCORE_STEP;
             moveTestItems();
             refreshScore();
+            if(mGameMode == GameMode.GAME_MODE_IN_MINUTES)
+            {
+                popupErrorOrRightText(true);
+            }
         }
         else
         {
-            view.setBackgroundResource(R.drawable.buttons_focus2);
-            showPopup(PopupCondition.POPUP_CONDITION_WRONG);
+            //when the judgement is wrong
+            if(mGameMode == GameMode.GAME_MODE_NO_MISTAKES) {
+                //view.setBackgroundResource(R.drawable.button2_bg_pressed);
+
+                //Stop the running
+                ChangeState(ActivityAction.ACTIVITY_ACTION_PAUSE);
+
+                BrnBnchMrkHelper.showPopup(this, PopupCondition.POPUP_CONDITION_WRONG);
+            }
+            else
+            {
+                //Minutes mode
+                moveTestItems();
+
+                //do something to report error
+                popupErrorOrRightText(false);
+            }
         }
     }
 
     public void onYes(View view)
     {
-        onJudge(true,view);
+        onJudge(true, view);
     }
 
     public void onNo(View view)
     {
-        onJudge(false,view);
+        onJudge(false, view);
     }
 
-    private void showPopup(PopupCondition condition)
-    {
-        //Stop the running
-        ChangeState(ActivityAction.ACTIVITY_ACTION_PAUSE);
 
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-
-        ft.addToBackStack(null);
-
-        DialogFragment dialog = new popupDialogFragment();
-        Bundle args = new Bundle();
-
-        args.putInt(popupDialogFragment.CONSTANT_SHOW_WHAT, condition.getValue());
-        dialog.setArguments(args);
-
-        dialog.show(ft, "dialog");
-        getFragmentManager().executePendingTransactions();
-        if(dialog.getDialog() != null)
-        {
-            dialog.getDialog().setCanceledOnTouchOutside(false);
-        }
-        else
-        {
-            Log.e("### ERROR ###", "getDialog() still returns NULL");
-        }
-
-    }
 
     public void showPausedUI(String btn_txt, String info_txt)
     {
+
         ((TextView)findViewById(R.id.info_when_paused)).setText(info_txt);
         String highestRecord = String.format(getString(R.string.str_highest_score), getHighestScore());
         ((TextView)findViewById(R.id.highest_score)).setText(highestRecord);
@@ -420,7 +611,27 @@ public abstract class MajorRunningActivity extends Activity {
 
     }
 
+    private void saveGameMode(GameMode mode)
+    {
+        if(mode == getGameMode())
+        {
+            return;
+        }
 
+        SharedPreferences settings = getApplicationContext().getSharedPreferences(getString(R.string.application_data), 0);
+        SharedPreferences.Editor editor = settings.edit();
+
+
+        editor.putInt(getString(R.string.game_mode), mode.getValue());
+        editor.apply();
+    }
+
+    private GameMode getGameMode()
+    {
+        SharedPreferences settings = getApplicationContext().getSharedPreferences(getString(R.string.application_data), 0);
+        int value = settings.getInt(getString(R.string.game_mode), GameMode.GAME_MODE_NO_MISTAKES.getValue());
+        return GameMode.getEnumByInt(value);
+    }
 
     private void saveHighestScore(int score)
     {
@@ -459,18 +670,34 @@ public abstract class MajorRunningActivity extends Activity {
 
     private String getPerformanceResult()
     {
-        int secs =CONSTANT_GIVEN_SECONDS - mLeftSeconds;
+        int secs = 0;
 
-        return String.format( getString(R.string.info_finished),
-                mCurScore,
-                mCurScore,
-                secs,
-                (float)mCurScore/secs,
-                (float)secs/mCurScore);
+        if( 0 == mTotalJudgeTimes) {
+            return getString(R.string.info_do_nothing);
+        }
+
+        if (mGameMode == GameMode.GAME_MODE_IN_MINUTES) {
+            secs = CONSTANT_GIVEN_SECONDS - mDisplaySeconds;
+            return String.format( getString(R.string.info_minutes_mode_finished),
+                    mCurScore,
+                    (float)secs/mTotalJudgeTimes,
+                    mCurScore*100/mTotalJudgeTimes);
+        }
+        else
+        {
+            secs = mDisplaySeconds;
+            return String.format( getString(R.string.info_no_mistake_mode_finished),
+                    mCurScore,
+                    secs,
+                    (float)secs/mCurScore);
+        }
+
+
     }
 
     private String getPerformanceComment()
     {
+        /*
         Resources res = getResources();
         int secs =CONSTANT_GIVEN_SECONDS - mLeftSeconds;
 
@@ -495,7 +722,8 @@ public abstract class MajorRunningActivity extends Activity {
             return res.getString(R.string.performance_4);
         }
 
-        return res.getString(R.string.performance_6);
+        return res.getString(R.string.performance_6);*/
+        return "";
 
     }
 
@@ -514,11 +742,12 @@ public abstract class MajorRunningActivity extends Activity {
     public void ChangeState(ActivityAction action)
     {
         Resources res = getResources();
-        switch(action)
-        {
+        switch(action) {
             case ACTIVITY_ACTION_INIT:
-                String instruction = res.getString(mInstructionResId)+"\n\n" + res.getString(R.string.instruction_part_2);
+                //String instruction = res.getString(mInstructionResId)+"\n\n" + res.getString(R.string.instruction_part_2);
+                String instruction = res.getString(mInstructionResId);
                 showPausedUI(res.getString(R.string.str_start), instruction);
+
                 mState = ActivityState.ACTIVITY_STATE_INITIAL;
                 break;
 
@@ -526,16 +755,22 @@ public abstract class MajorRunningActivity extends Activity {
 
                 subclass_initBeforeRun();
                 mCurScore = 0;
-                mLeftSeconds = CONSTANT_GIVEN_SECONDS;
+                mTotalJudgeTimes = 0;
+
+                if (mGameMode == GameMode.GAME_MODE_IN_MINUTES) {
+                    mDisplaySeconds = CONSTANT_GIVEN_SECONDS;
+                } else {
+                    mDisplaySeconds = 0;
+                }
+
                 fillTestItemsRandomly();
                 hideActionBarItems();
 
                 findViewById(R.id.frame_when_paused).setVisibility(View.INVISIBLE);
                 findViewById(R.id.frame_when_running).setVisibility(View.VISIBLE);
 
-                for ( int btnId : new int[]{R.id.yes_button, R.id.no_button}) {
+                for (int btnId : new int[]{R.id.yes_button, R.id.no_button}) {
                     findViewById(btnId).setClickable(true);
-                    findViewById(btnId).setBackgroundResource(R.drawable.button_type_2);
                 }
 
                 mState = ActivityState.ACTIVITY_STATE_RUNNING;
@@ -543,59 +778,67 @@ public abstract class MajorRunningActivity extends Activity {
                 TextView arrow_view;
 
                 //adjust right arrow > and < 's position
-                for(int arrowId : new int[]{R.id.right_arrow, R.id.left_arrow})
-                {
+                for (int arrowId : new int[]{R.id.right_arrow, R.id.left_arrow}) {
                     arrow_view = (TextView) findViewById(arrowId);
                     arrow_view.setY(mTestItem_Y[CONSTANT_ITEMS_COUNT - 1]);
                     arrow_view.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.arrow_text_size));
-                    arrow_view.setHeight((int)mTestItemHeight[CONSTANT_ITEMS_COUNT-1]);
+                    arrow_view.setHeight((int) mTestItemHeight[CONSTANT_ITEMS_COUNT - 1]);
                     arrow_view.setGravity(Gravity.CENTER_VERTICAL);
                     //arrow_view.setBackgroundColor(Color.BLACK);
                 }
 
                 refreshScore();
-                if ( null == mTimer)
-                {
+                if (null == mTimer) {
                     mTimer = new Timer(true);
                 }
 
-                mTimer.schedule(new TimerTask(){
+                mTimer.schedule(new TimerTask() {
                     @Override
-                    public void run(){
-                        mLeftSeconds -=1;
+                    public void run() {
+                        if(mState == ActivityState.ACTIVITY_STATE_PAUSED)
+                        {
+                            return;
+                        }
+
+                        if (mGameMode == GameMode.GAME_MODE_IN_MINUTES)
+                        {
+                            mDisplaySeconds -= 1;
+                        } else {
+                            mDisplaySeconds += 1;
+                        }
                         refreshTime();
                     }
-                },0,1000);
+                }, 0, 1000);
 
 
                 break;
 
-        case ACTIVITY_ACTION_PAUSE:
-            //showPausedUI(res.getString(R.string.str_restart),res.getString(R.string.color_judgement_instruction));
-            if(mTimer != null) {
-                mTimer.cancel();
-                mTimer.purge();
-                mTimer = null;
-            }
-            mState = ActivityState.ACTIVITY_STATE_PAUSED;
-            break;
+            case ACTIVITY_ACTION_PAUSE:
+                mState = ActivityState.ACTIVITY_STATE_PAUSED;
+                break;
 
-        case ACTIVITY_ACTION_TERMINATE:
+            case ACTIVITY_ACTION_RESUME:
+                mState = ActivityState.ACTIVITY_STATE_RUNNING;
+                break;
 
-                String finishedInfo = getPerformanceResult() + "\n"+getPerformanceComment();
+            case ACTIVITY_ACTION_TERMINATE:
 
-                saveHighestScore(mCurScore);
-
-                showPausedUI(res.getString(R.string.str_restart),finishedInfo);
                 if(mTimer != null) {
                     mTimer.cancel();
                     mTimer.purge();
                     mTimer = null;
                 }
+
+                String finishedInfo = getPerformanceResult();// + "\n"+getPerformanceComment();
+
+                saveHighestScore(mCurScore);
+
+                showPausedUI(res.getString(R.string.str_restart),finishedInfo);
+
                 mState = ActivityState.ACTIVITY_STATE_FINISHED;
                 break;
-        default:
-            break;
+            default:
+                break;
         }
     }
 
@@ -609,7 +852,8 @@ public abstract class MajorRunningActivity extends Activity {
         //only if it's in running state, make it to return stopped state
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mState == ActivityState.ACTIVITY_STATE_RUNNING) {
-                ChangeState(ActivityAction.ACTIVITY_ACTION_TERMINATE);
+                ChangeState(ActivityAction.ACTIVITY_ACTION_PAUSE);
+                BrnBnchMrkHelper.showPopup(this, PopupCondition.POPUP_CONDITION_IF_EXIT);
                 return true;
             }
         }
@@ -631,10 +875,7 @@ public abstract class MajorRunningActivity extends Activity {
         return bitmap;
     }
 
-    public void toShowAbout()
-    {
-        showPopup(PopupCondition.POPUP_CONDITION_ABOUT);
-    }
+
 
     private Uri getPNGUri(Bitmap bitmapImage){
         String fileName = getString(R.string.share_image_file);
@@ -725,5 +966,7 @@ public abstract class MajorRunningActivity extends Activity {
         }
 
     }
+
+
 }
 
